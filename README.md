@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Real Cost of Our Closets: Pune Edition
 
-## Getting Started
+Mobile-first survey (Next.js + Tailwind + Supabase). Responses are stored as one flat row per respondent, ready for CSV export.
 
-First, run the development server:
+## Setup
+1. Create a Supabase project, then run [supabase/schema.sql](supabase/schema.sql) in the SQL editor.
+2. Copy `.env.example` to `.env.local` and fill in `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` (Project Settings → API).
+3. `npm install && npm run dev`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Deploy to Vercel
+Push to GitHub, import the repo in Vercel, add the same two env vars, deploy.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Export data
+Supabase dashboard → Table Editor → `survey_export` view → Export → CSV.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Columns: `q1_buy_frequency`, `q2_shop_*` (boolean per option), `q3_top_factor`, `q4_unworn_items`, `q5_disposal`,
+`q6_waste_awareness` (1–5), `q7_water_footprint`, `q8_pay_more`, `q9_habit_*` (boolean per option), `q10_barrier` (free text).
+Unanswered single-choice questions are empty (NULL); unticked multi-choice options are `false`.
